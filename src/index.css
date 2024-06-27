@@ -1,0 +1,19 @@
+.container{
+  max-width: 390px;
+}
+section{
+  border: 1px solid #333;
+}
+
+.inputArea{
+  background-color: aquamarine;
+  margin-bottom: 50px;
+}
+
+.inComplete{
+  margin-bottom: 50px;
+}
+
+.Complete{
+  background-color: aquamarine;
+}
