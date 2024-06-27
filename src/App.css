@@ -1,0 +1,29 @@
+h2{
+  margin: 0;
+}
+.container{
+  max-width: 390px;
+  margin: 0 auto;
+}
+
+li{
+  list-style: none;
+}
+
+
+.input-area,.incomplete-area,.complete-area{
+  border: 1px solid #333;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+/* .input-area */
+.input-area{
+  margin-bottom: 20px;
+  background-color: rgb(255, 169, 8);
+}
+.incomplete-area{
+  margin-bottom: 20px;
+}
+
+

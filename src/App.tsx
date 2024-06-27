@@ -4,54 +4,43 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-
-  const [todoState,setTodoState]=useState([])
-    const [inputValue, setInputValue] = useState<string>('');
-
-
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value=(event.target.value)
-    setInputValue(value)
-    console.log(inputValue);
-};
-
-const addTask =()=>{
-  const newTask =[]
-  console.log('タスク追加')
-
-
-}
+  const [todos, setTodos] = useState([
+    {
+      id: 1,
+      task: 'タスク1',
+      isCompleted: false
+    },
+    {
+      id: 2,
+      task: 'タスク2',
+      isCompleted: false
+    }
+  ])
 
   return (
     <>
-    <div className='container'>
-     <h1>Todoアプリ</h1>
+      <div className='container'>
+        <div className="input-area">
+          <input placeholder="TODOを入力" />
+          <button>追加</button>
+        </div>
 
-     <section className='inputArea'>
-      <input type="text" placeholder='タスクを入力' onChange={onChange}/>
-      <button onClick={addTask}>作成</button>
-     </section>
+        <div className="incomplete-area">
+          <h2 className="title">TODO</h2>
+          <ul>
+            {todos.map((todo) => (
+              <li key={todo.id}>
+                <label>
+                  <input type='checkbox' />
+                  <span>{todo.task}</span>
+                </label>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-
-     <section className='inComplete'>
-      <p>未完了タスク</p>
-
-      <ul>
-        <li>Todo1</li>
-      </ul>
-     </section>
-
-
-     <section className='Complete'>
-      <p>完了済みタスク</p>
-
-      <ul>
-        <li>Todo2</li>
-      </ul>
-
-     </section>
-
-    </div>
+        <button>完了タスクの削除</button>
+      </div>
     </>
   )
 }
