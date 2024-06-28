@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState,ChangeEvent } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -10,15 +10,14 @@ function App() {
   // todoの配列
   const [todos, setTodos] = useState([{id:1,task:'タスク1'}])
 
-  const onChangeText = (event) => {
-    setTodos(event.target.value);
+  const onChangeText = (event: ChangeEvent<HTMLInputElement>) => {
+    setTodoItem(event.target.value);
   };
 
   const onSubmit =(e:any)=>{
     e.preventDefault()
     console.log(e.target.value)
-
-    console.log("テスト")
+    console.log(todoItem)
   }
 
   return (
@@ -27,10 +26,13 @@ function App() {
 
         <div className="input-area">
         <form>
-            <input
-             type="text"
-            id="name" name="name"
-              onChange={(e)=>onChangeText(e)} />
+          <input
+          type="text"
+          id="name"
+          name="name"
+          value={todoItem}
+          onChange={onChangeText}
+               />
             <button>追加</button>
           </form>
         </div>
