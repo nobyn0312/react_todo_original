@@ -4,21 +4,15 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [task, setTask] = useState('');//追加したタスクを一時的に保持するステート
+  // todoそのもの
+  const [todoItem,setTodoItem] =useState("");
 
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      task: 'タスク1',
-      isCompleted: false
-    },
-    {
-      id: 2,
-      task: 'タスク2',
-      isCompleted: false
-    }
-  ])
+  // todoの配列
+  const [todos, setTodos] = useState([{id:1,task:'タスク1'}])
 
+  const onChangeText = (event) => {
+    setTodos(event.target.value);
+  };
 
   const onSubmit =(e:any)=>{
     e.preventDefault()
@@ -32,19 +26,15 @@ function App() {
       <div className='container'>
 
         <div className="input-area">
-
-          <form onSubmit={onSubmit}>
+        <form>
             <input
-              id='task'
-              name='task'
-              value={task}
-              onChange={(e) => {
-                setTask(e.target.value)
-              }} />
+             type="text"
+            id="name" name="name"
+              onChange={(e)=>onChangeText(e)} />
             <button>追加</button>
           </form>
-
         </div>
+
 
         <div className="incomplete-area">
           <h2 className="title">TODO</h2>
