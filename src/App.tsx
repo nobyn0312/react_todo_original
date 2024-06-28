@@ -4,6 +4,8 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
+  const [task, setTask] = useState('');//追加したタスクを一時的に保持するステート
+
   const [todos, setTodos] = useState([
     {
       id: 1,
@@ -17,12 +19,31 @@ function App() {
     }
   ])
 
+
+  const onSubmit =(e:any)=>{
+    e.preventDefault()
+    console.log(e.target.value)
+
+    console.log("テスト")
+  }
+
   return (
     <>
       <div className='container'>
+
         <div className="input-area">
-          <input placeholder="TODOを入力" />
-          <button>追加</button>
+
+          <form onSubmit={onSubmit}>
+            <input
+              id='task'
+              name='task'
+              value={task}
+              onChange={(e) => {
+                setTask(e.target.value)
+              }} />
+            <button>追加</button>
+          </form>
+
         </div>
 
         <div className="incomplete-area">
