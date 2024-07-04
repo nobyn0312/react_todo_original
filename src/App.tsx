@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import './App.css'
 
+
 function App() {
 
   const [inputValue, setInputValue] = useState("");
 
-  const [todos,setTodos] = useState<Todo[]>([]);
+  const [todos, setTodos] = useState<Todo[]>([]);
 
   // todoのタイプを定義
   type Todo = {
@@ -21,14 +22,14 @@ function App() {
     setInputValue(e.target.value);
   };
 
-  const handleSubmit =(e:React.FormEvent<HTMLFormElement>)=>{
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const newTodo:Todo ={
-      inputValue:inputValue,
-      id:todos.length,
-      checked:false
+    const newTodo: Todo = {
+      inputValue: inputValue,
+      id: todos.length,
+      checked: false
     }
-    setTodos([newTodo,...todos])
+    setTodos([newTodo, ...todos])
     setInputValue("")
   }
 
@@ -39,10 +40,10 @@ function App() {
     setTodos(newTodos);
   }
 
-  const handleCheck = (id: number,checked:boolean) => {
+  const handleCheck = (id: number, checked: boolean) => {
     const newTodos = todos.map((todo) => {
       if (todo.id === id) {
-        todo.checked  = !checked
+        todo.checked = !checked
       }
       return todo;
     });
@@ -50,16 +51,24 @@ function App() {
   };
 
   // 削除
-  const handleDelete=(id:number,checked:boolean)=>{
+  const handleDelete = (id: number, checked: boolean) => {
     console.log(id)
-    const newTodos = todos.filter((todo)=>todo.id !== id)
+    const newTodos = todos.filter((todo) => todo.id !== id)
 
-    if(checked === true){
+    if (checked === true) {
       setTodos(newTodos)
-    }else{
+    } else {
       return
     }
+  }
 
+  // 完了のみ
+  const filterdStatus =(checked: boolean)=>{
+    if(checked === true){
+      console.log("完了")
+    }else{
+      console.log("未完了")
+    }
 
   }
 
@@ -69,34 +78,42 @@ function App() {
 
         <h1>Todo</h1>
         <div className="input-area">
-        <form onSubmit={(e) => handleSubmit(e)}>
+          <form onSubmit={(e) => handleSubmit(e)}>
             <input
-            type="text"
-            onChange={(e) => handleChange(e)}
-            className='input'/>
-           <input type='submit' value="作成"/>
+              type="text"
+              onChange={(e) => handleChange(e)}
+              className='input' />
+            <input type='submit' value="作成"/>
           </form>
+        </div>
+
+        <div>
+          <select name="status" id="status-select" onChange={filterdStatus}>
+            <option value="all">all</option>
+            <option value="incomplete">未完了</option>
+            <option value="complete">完了</option>
+          </select>
         </div>
 
         <div className="incomplete-area">
           <ul>
-            {todos.map((todo)=>
+            {todos.map((todo) =>
               <li key={todo.id}>
-                <input type="checkbox"  onChange={() => handleCheck(todo.id,todo.checked)} className='checkbox'/>
-              <input
-                type="text"
-                disabled={todo.checked}
-                onChange={(e) => handleEdit(todo.id, e.target.value)}
-                value={todo.inputValue}
-                className='input' />
+                <input type="checkbox" onChange={() => handleCheck(todo.id, todo.checked)} className='checkbox' />
+                <input
+                  type="text"
+                  disabled={todo.checked}
+                  onChange={(e) => handleEdit(todo.id, e.target.value)}
+                  value={todo.inputValue}
+                  className='input' />
 
-                <button onClick={()=>handleDelete(todo.id,todo.checked)}>削除</button>
-            </li>
+                <button onClick={() => handleDelete(todo.id, todo.checked)}>削除</button>
+              </li>
             )}
           </ul>
         </div>
 
-        </div>
+      </div>
     </>
   )
 }
