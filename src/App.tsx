@@ -5,7 +5,9 @@ import './App.css'
 function App() {
 
   const [inputValue, setInputValue] = useState("");
-  const [filter, setFilter] = useState('all');
+
+  const [filter,setFilter] =useState("incomplete")
+
   const [todos, setTodos] = useState<Todo[]>([]);
 
   // todoのタイプを定義
@@ -62,15 +64,13 @@ function App() {
     }
   }
 
+
   // 完了のみ
-  const filterTodos = () => {
-    if (filter === 'completed') {
-      return todos.filter(todo => todo.checked);
-    } else if (filter === 'incomplete') {
-      return todos.filter(todo => !todo.checked);
-    }
-    return todos;
-  };
+  const filterdStatus=()=>{
+    console.log("テスト")
+  }
+
+
   return (
     <>
       <div className='container'>
@@ -87,7 +87,7 @@ function App() {
         </div>
 
         <div>
-          <select name="status" id="status-select" onChange={filterTodos}>
+          <select name="status" id="status-select" onChange={(e)=> setFilter(e.target.value)}>
             <option value="all">all</option>
             <option value="incomplete">未完了</option>
             <option value="complete">完了</option>
@@ -110,12 +110,6 @@ function App() {
               </li>
             )}
           </ul>
-
-          <div className="filter-area">
-            {filterTodos.map(todos) => (
-              <li key={todos.id}>{todos.inputValue}</li>
-            )}
-          </div>
         </div>
 
       </div>
