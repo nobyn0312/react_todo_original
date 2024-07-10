@@ -32,7 +32,7 @@ function App() {
       checked: false
     }
     setTodos([newTodo, ...todos])
-    setInputValue("")
+    setInputValue('')
   }
 
   const handleEdit = (id: number, newValue: string) => {
@@ -65,11 +65,15 @@ function App() {
   }
 
 
-  // 完了のみ
-  const filterdStatus=()=>{
-    console.log("テスト")
-  }
-
+  const filteredTodos = todos.filter((todo) => {
+    if (filter === "complete") {
+      return todo.checked;
+    } else if (filter === "incomplete") {
+      return !todo.checked;
+    } else{
+      return true;
+    }
+  });
 
   return (
     <>
@@ -88,7 +92,6 @@ function App() {
 
         <div>
           <select name="status" id="status-select" onChange={(e)=> setFilter(e.target.value)}>
-            <option value="all">all</option>
             <option value="incomplete">未完了</option>
             <option value="complete">完了</option>
           </select>
@@ -112,6 +115,16 @@ function App() {
           </ul>
         </div>
 
+
+        <div className="incomplete-area">
+          <ul>
+            {filteredTodos.map((todo) =>
+              <li key={todo.id}>
+                {todo.inputValue}
+              </li>
+            )}
+          </ul>
+        </div>
       </div>
     </>
   )
